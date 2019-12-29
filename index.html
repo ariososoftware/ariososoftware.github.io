@@ -47,7 +47,7 @@
   
   <body>
     <-- Initializing a-scene -->
-    <a-scene id="scene" arjs='detectionMode: mono_and_matrix; matrixCodeType: 3x3' vr-mode-ui="enabled: false "  ar-template>
+    <a-scene id="scene" arjs='sourceType: webcam; debugUIEnabled: false;detectionMode: mono_and_matrix; matrixCodeType: 3x3' vr-mode-ui="enabled: false "  ar-template>
     
      <!--detectionMode: mono_and_matrix; matrixCodeType: 3x3; --> 
           <a-assets>
@@ -58,7 +58,7 @@
 
           </a-assets>
           
-          <a-marker preset='barcode' value='20'>
+          <a-marker preset='barcode' value='2'>
             <!-- Adding an OBJ file to an AR Project-->
             <a-entity obj-model="obj: url(/3dmodel/AH-64.obj); mtl: url(3dmodel/AH-64.mtl)">
             </a-entity>
