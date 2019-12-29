@@ -1,1 +1,83 @@
-"Hello World" 
+
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+  
+    <title> ARioso Design </title>
+     <!-- Viewport -->
+    <meta name="viewport" content="width=device-width,height=device-height">
+    <!-- IOS SUPPORT -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+  
+<script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+<script src="https://raw.githack.com/jeromeetienne/AR.js/2.1.0/aframe/build/aframe-ar.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+ 
+    <script>
+                       
+        // Invitation Video Handler
+        
+        AFRAME.registerComponent('video-vidhandler', {
+            init: function() {
+            console.log('video init entered');
+                this.toggle = false;
+                this.vid = document.querySelector("#invitation");
+                this.vid.pause();
+            },
+            tick: function() {
+                if (this.el.object3D.visible == true) {
+                    if (!this.toggle) {
+                        this.toggle = true;
+                        this.vid.play();
+                    }
+                  } else {
+                         this.toggle = false;
+                         this.vid.pause();
+                }
+              }
+            
+        });
+
+    </script>
+
+  </head>
+  
+  <body>
+    <-- Initializing a-scene -->
+    <a-scene id="scene" arjs='trackingMethod: best; debugUIEnabled: false; sourceWidth:800; sourceHeight:600; displayWidth: 800; displayHeight: 600;' vr-mode-ui="enabled: false "  ar-template>
+    
+     <!--detectionMode: mono_and_matrix; matrixCodeType: 3x3; --> 
+          <a-assets>
+
+              <video preload="auto" id="invitation" response-type="arraybuffer" loop="true" crossorigin webkit-playsinline playsinline controls>
+                  <source  src="wedding2.mp4">
+              </video>
+
+          </a-assets>
+          
+          <a-marker preset=’hiro’>
+            <!-- Adding an OBJ file to an AR Project-->
+            <a-entity 
+            obj-model="obj: url(/3dmodel/AH-64.obj); 
+            mtl: url(3dmodel/AH-64.mtl)">
+            </a-entity>
+
+          </a-marker>
+
+
+          <a-marker id="animated-marker" type='pattern' smooth="true"  smoothTolerance="0.1" smoothCount="20" preset="custom" url="path/pattern-wedding6.patt" video-vidhandler>
+           
+            <a-plane vidhandler  scale="3.5 2" position="0 0 0"  rotation="-90 0 0" material='transparent:true;src:#invitation' controls></a-plane>
+                    
+          </a-marker>
+          
+          <a-entity camera></a-entity>
+
+    </a-scene>
+  
+  
+  </body>
+  
+</html>
